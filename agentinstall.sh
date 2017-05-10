@@ -11,3 +11,9 @@ if [ -d "$AGENT_DIR" ]; then
 		echo "Job exists, nothing to do"
 	fi
 fi
+
+#Clone repository if needed
+if [ ! -d "$AGENT_DIR" ]; then
+	echo "Getting agent script..."
+	cd $HOME && git clone https://github.com/haxdai/batch-processing-agent.git
+fi

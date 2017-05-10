@@ -28,9 +28,3 @@ elif [ -f /etc/centos-release ]; then
 		yum -y install git-all
 	fi
 fi
-
-#Clone repository if needed
-if [ ! -d "$AGENT_DIR" ]; then
-	echo "Getting agent script..."
-	cd $HOME && git clone https://github.com/haxdai/batch-processing-agent.git
-fi
