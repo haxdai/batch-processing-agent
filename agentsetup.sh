@@ -1,30 +1,36 @@
 #!/bin/bash
 AGENT_DIR="$HOME/batch-processing-agent"
-#Install python
-dpkg -s python > /dev/null 2>&1
-if [ ! $? -eq 0 ]; then
-	apt-get install -y python
-fi
 
-#Install git
-dpkg -s git > /dev/null 2>&1
-if [ ! $? -eq 0 ]; then
-	apt-get update > /dev/null 2>&1 \
-	&& apt-get install -y git
+if [ -f /etc/lsb-release ] || [ -f /etc/debian_version ]; then
+  echo "Installing dependencies in debian-based machine..."
+
+	#Install python
+	dpkg -s python > /dev/null 2>&1
+	if [ ! $? -eq 0 ]; then
+		echo "Installing python..."
+		apt-get install -y python
+	fi
+
+	#Install git
+	dpkg -s git > /dev/null 2>&1
+	if [ ! $? -eq 0 ]; then
+		echo "Installing git..."
+		apt-get update > /dev/null 2>&1 \
+		&& apt-get install -y git
+	fi
+elif [ -f /etc/centos-release ]; then
+  echo "Installing dependencies in CentOS machine..."
+
+	#Install git
+	rpm -q git > /dev/null 2>&1
+	if [ ! $? -eq 0 ]; then
+		echo "Installing git..."
+		yum -y install git-all
+	fi
 fi
 
 #Clone repository if needed
 if [ ! -d "$AGENT_DIR" ]; then
-  cd $HOME && git clone https://github.com/haxdai/batch-processing-agent.git
-fi
-
-#Setup agent
-if [ -d "$AGENT_DIR" ]; then
-  crontab -l  | grep '/batch-processing-agent/agent.py' -q > /dev/null 2>&1
-  if [ ! $? -eq 0 ]; then
-    echo "Adding crontab Job for agent"
-    (echo "*/1 * * * * python $HOME/batch-processing-agent/agent.py") | crontab -
-  else
-    echo "Job exists, nothing to do"
-  fi
+	echo "Getting agent script..."
+	cd $HOME && git clone https://github.com/haxdai/batch-processing-agent.git
 fi
