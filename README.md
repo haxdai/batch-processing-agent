@@ -1,7 +1,7 @@
 # batch-processing-agent
 Lightweight python agent to retrieve and execute batch tasks
 
-## Easy setup (Debian-based Linux)
+## Easy setup
 Run setup script to install required packages
 ```sh
 cd $HOME
@@ -11,11 +11,11 @@ sudo curl -s https://raw.githubusercontent.com/haxdai/batch-processing-agent/mas
 Clone agent repository
 ```sh
 git clone https://github.com/haxdai/batch-processing-agent.git
-cd batch-processing-agent
 ```
 
 Make agent.sh executable
 ```sh
+cd $HOME/batch-processing-agent
 chmod +x agent.sh
 ```
 
