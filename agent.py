@@ -1,8 +1,8 @@
 # -*- coding: utf-8
-import os, time, socket, ssl, re, subprocess, datetime, tempfile, platform, pprint
+import os, time, socket, ssl, re, subprocess, datetime, tempfile, platform, pprint, pwd
 """Versión del agente para unix, en python 2.7"""
 #@author: Sergio Martínez @SuperSerch
-login = os.getlogin()
+login = pwd.getpwuid(os.getuid())[0]#os.getlogin()
 pid = os.getpid()
 uid = os.getuid()
 hostname = socket.gethostname()

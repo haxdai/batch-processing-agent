@@ -9,10 +9,11 @@ fi
 
 #Setup agent
 if [ -d "$AGENT_DIR" ]; then
-	crontab -l  | grep '/batch-processing-agent/agent.py' -q > /dev/null 2>&1
+	chmod +x $AGENT_DIR/batch-processing-agent/agent.sh
+	crontab -l  | grep '/batch-processing-agent/agent.sh' -q > /dev/null 2>&1
 	if [ ! $? -eq 0 ]; then
 		echo "Adding crontab Job for agent..."
-		(echo "*/1 * * * * python $HOME/batch-processing-agent/agent.py") | crontab -
+		(echo "*/1 * * * * $HOME/batch-processing-agent/agent.sh") | crontab -
 	else
 		echo "Job exists, nothing to do"
 	fi
