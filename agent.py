@@ -37,7 +37,7 @@ def executeScript(script):
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.settimeout(10)
 packet = hostname + "\n" + sys + "\n" + login + "\n" + str(pid) + "\n"
-HOST, PORT = os.environ['SERVER_HOST'], os.environ['SERVER_PORT']
+HOST, PORT = os.environ['SERVER_HOST'], int(os.environ['SERVER_PORT'])
 wrappedSocket = ssl.wrap_socket(sock, ssl_version=ssl.PROTOCOL_TLSv1, ciphers="ECDHE-RSA-AES128-SHA")
 wrappedSocket.connect((HOST, PORT))
 wrappedSocket.send(packet)
