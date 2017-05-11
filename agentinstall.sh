@@ -9,7 +9,7 @@ fi
 
 #Setup agent
 if [ -d "$AGENT_DIR" ]; then
-	chmod +x $AGENT_DIR/batch-processing-agent/agent.sh
+	chmod +x $AGENT_DIR/agent.sh
 	crontab -l  | grep '/batch-processing-agent/agent.sh' -q > /dev/null 2>&1
 	if [ ! $? -eq 0 ]; then
 		echo "Adding crontab Job for agent..."
